@@ -1,0 +1,35 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-image",
+      "description": "Educational technology for children with disabilities",
+      "imageUrl": "https://picsum.photos/seed/thawi-hero/1200/800",
+      "imageHint": "education accessibility"
+    },
+    {
+      "id": "braille-learning",
+      "description": "Child learning Braille with modern device",
+      "imageUrl": "https://picsum.photos/seed/braille-1/800/600",
+      "imageHint": "braille education"
+    },
+    {
+      "id": "writing-device",
+      "description": "Close up of a tactile writing training tool",
+      "imageUrl": "https://picsum.photos/seed/writing-1/800/600",
+      "imageHint": "tactile learning"
+    },
+    {
+      "id": "assessment-tool",
+      "description": "Specialist using a digital tool with a child",
+      "imageUrl": "https://picsum.photos/seed/assess-1/800/600",
+      "imageHint": "child assessment"
+    },
+    {
+      "id": "main-logo",
+      "description": "Thawi Logo Icon",
+      "imageUrl": "https://picsum.photos/seed/thawi-logo-v3/400/400",
+      "imageHint": "wheelchair logo"
+    }
+  ]
+}
