@@ -4,6 +4,10 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'ذوي | تقنيات تعليمية مساندة',
   description: 'تقنيات تعليمية ومساندة مبتكرة لذوي الاحتياجات الخاصة، نبني أدوات تساعد على القراءة والكتابة والتقييم بدقة أكبر.',
+  icons: {
+    icon: '/logo.svg',
+    shortcut: '/logo.svg',
+  },
 };
 
 export default function RootLayout({

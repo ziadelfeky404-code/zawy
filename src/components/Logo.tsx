@@ -3,7 +3,7 @@
 
 import Image from 'next/image';
 import { cn } from "@/lib/utils";
-import logoSvg from './logo.svg';
+import logoSvg from '@/app/logo.svg';
 
 interface LogoProps {
   className?: string;
