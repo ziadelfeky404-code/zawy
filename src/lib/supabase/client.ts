@@ -1,9 +1,8 @@
 import { createBrowserClient } from '@supabase/ssr'
 
 export function createClient() {
-  // Use placeholder to avoid Supabase connection issues
   return createBrowserClient(
-    'https://placeholder.supabase.co',
-    'placeholder-key'
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 }
