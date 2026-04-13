@@ -40,18 +40,6 @@ export default function LoginPage() {
     }
   };
 
-      if (error) {
-        setError('البريد الإلكتروني أو كلمة المرور غير صحيحة');
-      } else {
-        router.push('/admin/dashboard');
-      }
-    } catch (err) {
-      setError('حدث خطأ غير متوقع');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <Card className="w-full max-w-md">
