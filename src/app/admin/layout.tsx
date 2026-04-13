@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { 
@@ -28,11 +28,16 @@ const navigation = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    if (pathname === '/admin/login') {
+      setLoading(false);
+      return;
+    }
+    
     const checkUser = async () => {
       try {
         const supabase = createClient();
@@ -40,7 +45,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         if (!user) {
           router.push('/admin/login');
         } else {
-          setIsAuthenticated(true);
           setLoading(false);
         }
       } catch (error) {
@@ -49,7 +53,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       }
     };
     checkUser();
-  }, [router]);
+  }, [router, pathname]);
 
   const handleLogout = async () => {
     try {
@@ -68,6 +72,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
+  }
+
+  if (pathname === '/admin/login') {
+    return <>{children}</>;
   }
 
   return (
