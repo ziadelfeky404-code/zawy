@@ -4,11 +4,6 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'ذوي | تقنيات تعليمية مساندة',
   description: 'تقنيات تعليمية ومساندة مبتكرة لذوي الاحتياجات الخاصة، نبني أدوات تساعد على القراءة والكتابة والتقييم بدقة أكبر.',
-  icons: {
-    icon: [
-      { url: '/logo.svg', type: 'image/svg+xml' },
-    ],
-  },
 };
 
 export default function RootLayout({
@@ -22,7 +17,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="font-body antialiased selection:bg-accent/30">
         {children}

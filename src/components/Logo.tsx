@@ -11,7 +11,7 @@ interface LogoProps {
 export function Logo({ className }: LogoProps) {
   return (
     <div className={cn("relative flex items-center justify-center", className)}>
-      <div className="w-20 h-12 md:w-28 md:h-16 lg:w-36 lg:h-20 transition-transform hover:scale-105 duration-300">
+      <div className="w-28 h-16 md:w-36 md:h-20 lg:w-44 lg:h-24 transition-transform hover:scale-105 duration-300">
         <object
           data={logoSvg.src}
           type="image/svg+xml"
