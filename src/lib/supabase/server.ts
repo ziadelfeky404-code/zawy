@@ -5,30 +5,25 @@ export async function createClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  if (!url || !key || !url.startsWith('https://')) {
+  if (!url || !key || !url.startsWith('https://') || !url.includes('.supabase.co')) {
     return null;
   }
 
-  const cookieStore = await cookies()
-
-  return createServerClient(
-    url,
-    key,
-    {
+  try {
+    const cookieStore = await cookies();
+    return createServerClient(url, key, {
       cookies: {
         getAll() {
-          return cookieStore.getAll()
+          return cookieStore.getAll();
         },
         setAll(cookiesToSet) {
           try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            )
-          } catch {
-            // Called from Server Component
-          }
+            cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
+          } catch {}
         },
       },
-    }
-  )
+    });
+  } catch {
+    return null;
+  }
 }
