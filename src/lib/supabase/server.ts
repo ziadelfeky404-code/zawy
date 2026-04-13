@@ -5,8 +5,10 @@ export async function createClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+  console.log('Server: Creating client with URL:', url);
+
   if (!url || !key || !url.startsWith('https://') || !url.includes('.supabase.co')) {
-    console.log('Supabase not configured, returning null client');
+    console.log('Server: Invalid Supabase credentials');
     return null;
   }
 
@@ -27,7 +29,7 @@ export async function createClient() {
       },
     });
   } catch (e) {
-    console.log('Error creating supabase client:', e);
+    console.log('Server: Error creating supabase client:', e);
     return null;
   }
 }
