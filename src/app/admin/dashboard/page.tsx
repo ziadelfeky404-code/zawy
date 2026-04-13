@@ -89,24 +89,26 @@ export default function DashboardPage() {
       {loading ? (
         <div className="text-center py-8">جاري التحميل...</div>
       ) : (
-        {cards.map((card) => (
-          <Link key={card.title} href={card.href}>
-            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-500 mb-1">{card.title}</p>
-                    <p className="text-3xl font-bold">{card.value}</p>
+        <div className="grid gap-6 md:grid-cols-3">
+          {cards.map((card) => (
+            <Link key={card.title} href={card.href}>
+              <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-500 mb-1">{card.title}</p>
+                      <p className="text-3xl font-bold">{card.value}</p>
+                    </div>
+                    <div className={`w-12 h-12 rounded-full ${card.color} flex items-center justify-center`}>
+                      <card.icon className="w-6 h-6 text-white" />
+                    </div>
                   </div>
-                  <div className={`w-12 h-12 rounded-full ${card.color} flex items-center justify-center`}>
-                    <card.icon className="w-6 h-6 text-white" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
-      </div>)}
+        </div>
+      )}
 
       <div className="mt-8 grid gap-6 md:grid-cols-2">
         <Card>
