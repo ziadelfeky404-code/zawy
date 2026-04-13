@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useEffect, useState, useLayoutEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { 
@@ -28,15 +28,20 @@ const navigation = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isLoginPage, setIsLoginPage] = useState(false);
+
+  useLayoutEffect(() => {
+    const path = window.location.pathname;
+    if (path === '/admin/login') {
+      setIsLoginPage(true);
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    if (pathname === '/admin/login') {
-      setLoading(false);
-      return;
-    }
+    if (isLoginPage) return;
     
     const checkUser = async () => {
       try {
@@ -53,7 +58,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       }
     };
     checkUser();
-  }, [router, pathname]);
+  }, [router, isLoginPage]);
 
   const handleLogout = async () => {
     try {
@@ -74,7 +79,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     );
   }
 
-  if (pathname === '/admin/login') {
+  if (isLoginPage) {
     return <>{children}</>;
   }
 
