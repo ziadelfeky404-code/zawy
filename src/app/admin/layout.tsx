@@ -33,7 +33,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [isLoginPage, setIsLoginPage] = useState(false);
 
   if (typeof window !== 'undefined') {
-    if (window.location.pathname === '/login') {
+    if (window.location.pathname === '/signin') {
       return <>{children}</>;
     }
   }
@@ -42,7 +42,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     try {
       const supabase = createClient();
       await supabase.auth.signOut();
-      router.push('/login');
+      router.push('/signin');
     } catch (error) {
       console.error('Logout error:', error);
       router.push('/login');
