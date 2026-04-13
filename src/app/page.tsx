@@ -13,33 +13,33 @@ import { getSiteSettings, getHomepageSection, getAllProducts, getVisionMission, 
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  // Fetch all data from Supabase
-  const [
-    settings,
-    heroSection,
-    aboutSection,
-    products,
-    visionMission,
-    whyUsItems,
-    whoWeServeItems,
-    pilotProgram,
-    contactInfo,
-  ] = await Promise.all([
-    getSiteSettings(),
-    getHomepageSection('hero'),
-    getHomepageSection('about'),
-    getAllProducts(),
-    getVisionMission(),
-    getWhyUsItems(),
-    getWhoWeServe(),
-    getPilotProgram(),
-    getContactInfo(),
-  ]);
+  let settings = {};
+  let heroSection = null;
+  let aboutSection = null;
+  let products: any[] = [];
+  let visionMission: any[] = [];
+  let whyUsItems: any[] = [];
+  let whoWeServeItems: any[] = [];
+  let pilotProgram = null;
+  let contactInfo: any[] = [];
 
-  // Parse hero content
+  try {
+    ([settings, heroSection, aboutSection, products, visionMission, whyUsItems, whoWeServeItems, pilotProgram, contactInfo] = await Promise.all([
+      getSiteSettings().catch(() => ({})),
+      getHomepageSection('hero').catch(() => null),
+      getHomepageSection('about').catch(() => null),
+      getAllProducts().catch(() => []),
+      getVisionMission().catch(() => []),
+      getWhyUsItems().catch(() => []),
+      getWhoWeServe().catch(() => []),
+      getPilotProgram().catch(() => null),
+      getContactInfo().catch(() => []),
+    ]));
+  } catch (e) {
+    console.log('Error fetching data:', e);
+  }
+
   const heroContent = heroSection?.content as { cta_primary?: string; cta_secondary?: string } | null;
-  
-  // Parse about content
   const aboutContent = aboutSection?.content as { description?: string } | null;
 
   return (

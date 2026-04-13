@@ -6,6 +6,7 @@ export async function createClient() {
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!url || !key || !url.startsWith('https://') || !url.includes('.supabase.co')) {
+    console.log('Supabase not configured, returning null client');
     return null;
   }
 
@@ -19,11 +20,14 @@ export async function createClient() {
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
-          } catch {}
+          } catch (e) {
+            console.log('Cookie set error:', e);
+          }
         },
       },
     });
-  } catch {
+  } catch (e) {
+    console.log('Error creating supabase client:', e);
     return null;
   }
 }
