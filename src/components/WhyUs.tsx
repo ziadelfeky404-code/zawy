@@ -1,29 +1,20 @@
+import type { WhyUsItem } from '@/types/supabase';
 import { CheckCircle2, Globe, ShieldCheck, HeartHandshake } from 'lucide-react';
 
-const reasons = [
-  {
-    title: 'نقص الأدوات العربية',
-    description: 'نعالج الفجوة الكبيرة في توفر الأدوات المساندة المصممة خصيصاً للغة العربية.',
-    icon: Globe
-  },
-  {
-    title: 'تكلفة اقتصادية',
-    description: 'نوفر بدائل محلية عالية الجودة بتكلفة أقل بكثير من المنتجات المستوردة.',
-    icon: ShieldCheck
-  },
-  {
-    title: 'دعم تعليمي متكامل',
-    description: 'حلولنا تغطي جوانب القراءة والكتابة والتقييم في حزمة تقنية واحدة.',
-    icon: HeartHandshake
-  },
-  {
-    title: 'سهولة الاستخدام',
-    description: 'تصاميمنا تركز على المستخدم النهائي لتكون سهلة الاستخدام في البيت والمدرسة.',
-    icon: CheckCircle2
-  }
+interface WhyUsProps {
+  items?: WhyUsItem[];
+}
+
+const defaultItems: WhyUsItem[] = [
+  { id: '1', title: 'نقص الأدوات العربية', description: 'نعالج الفجوة الكبيرة في توفر الأدوات المساندة المصممة خصيصاً للغة العربية.', icon_name: 'globe', display_order: 1, is_published: true, created_at: '', updated_at: '' },
+  { id: '2', title: 'تكلفة اقتصادية', description: 'نوفر بدائل محلية عالية الجودة بتكلفة أقل بكثير من المنتجات المستوردة.', icon_name: 'shield', display_order: 2, is_published: true, created_at: '', updated_at: '' },
+  { id: '3', title: 'دعم تعليمي متكامل', description: 'حلولنا تغطي جوانب القراءة والكتابة والتقييم في حزمة تقنية واحدة.', icon_name: 'heart', display_order: 3, is_published: true, created_at: '', updated_at: '' },
+  { id: '4', title: 'سهولة الاستخدام', description: 'تصاميمنا تركز على المستخدم النهائي لتكون سهلة الاستخدام في البيت والمدرسة.', icon_name: 'check', display_order: 4, is_published: true, created_at: '', updated_at: '' },
 ];
 
-export function WhyUs() {
+export function WhyUs(props: WhyUsProps) {
+  const items = (props.items && props.items.length > 0) ? props.items : defaultItems;
+
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,11 +40,11 @@ export function WhyUs() {
             </div>
           </div>
           <div className="grid sm:grid-cols-2 gap-6">
-            {reasons.map((reason, idx) => (
-              <div key={idx} className="p-8 rounded-2xl bg-background border border-border/50 hover:border-primary/20 transition-colors">
-                <reason.icon className="w-10 h-10 text-primary mb-6" />
-                <h3 className="text-xl font-bold mb-3">{reason.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{reason.description}</p>
+            {items.map((item) => (
+              <div key={item.id} className="p-8 rounded-2xl bg-background border border-border/50 hover:border-primary/20 transition-colors">
+                <CheckCircle2 className="w-10 h-10 text-primary mb-6" />
+                <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
