@@ -16,6 +16,8 @@ import { Button } from '@/components/ui/button';
 import { Check, X, Phone, Mail } from 'lucide-react';
 import type { PilotRequest } from '@/types/supabase';
 
+export const dynamic = 'force-dynamic';
+
 const statusLabels: Record<string, string> = {
   new: 'جديد',
   contacted: 'تم التواصل',

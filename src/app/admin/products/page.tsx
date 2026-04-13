@@ -32,6 +32,8 @@ import { Badge } from '@/components/ui/badge';
 import { Plus, Pencil, Trash2, Eye, EyeOff } from 'lucide-react';
 import type { Product } from '@/types/supabase';
 
+export const dynamic = 'force-dynamic';
+
 const statusLabels: Record<string, string> = {
   concept: 'مفهوم',
   prototype: 'نموذج أولي',

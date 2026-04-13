@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 const navigation = [
   { name: 'لوحة التحكم', href: '/admin/dashboard', icon: LayoutDashboard },
   { name: 'المنتجات', href: '/admin/products', icon: Package },
@@ -57,7 +59,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Mobile sidebar */}
       <div className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? 'block' : 'hidden'}`}>
         <div className="fixed inset-0 bg-black/50" onClick={() => setSidebarOpen(false)} />
         <div className="fixed inset-y-0 right-0 w-64 bg-white shadow-lg">
@@ -90,7 +91,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </div>
 
-      {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:right-0 lg:w-64 lg:block">
         <div className="flex flex-col h-full bg-white shadow-lg">
           <div className="p-6 border-b">
@@ -121,7 +121,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </div>
 
-      {/* Main content */}
       <div className="lg:mr-64">
         <header className="bg-white shadow-sm lg:hidden">
           <div className="flex items-center justify-between p-4">

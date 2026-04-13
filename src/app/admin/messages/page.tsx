@@ -16,6 +16,8 @@ import { Button } from '@/components/ui/button';
 import { Eye, Archive, Check } from 'lucide-react';
 import type { ContactMessage } from '@/types/supabase';
 
+export const dynamic = 'force-dynamic';
+
 const statusLabels: Record<string, string> = {
   new: 'جديد',
   read: 'مقروء',

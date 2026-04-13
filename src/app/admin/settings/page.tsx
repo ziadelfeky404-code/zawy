@@ -13,6 +13,8 @@ interface SiteSetting {
   description: string | null;
 }
 
+export const dynamic = 'force-dynamic';
+
 export default function SettingsPage() {
   const supabase = createClient();
   const [settings, setSettings] = useState<SiteSetting[]>([]);
