@@ -1,4 +1,3 @@
-import { createClient } from '@/lib/supabase/server';
 import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
 import { About } from '@/components/About';
@@ -10,6 +9,8 @@ import { PilotProgram } from '@/components/PilotProgram';
 import { ContactForm } from '@/components/ContactForm';
 import { Footer } from '@/components/Footer';
 import { getSiteSettings, getHomepageSection, getAllProducts, getVisionMission, getWhyUsItems, getWhoWeServe, getPilotProgram, getContactInfo } from '@/lib/website-data';
+
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   // Fetch all data from Supabase

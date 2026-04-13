@@ -13,7 +13,7 @@ import type {
 function isSupabaseConfigured(): boolean {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  return !!(url && key && !url.includes('placeholder') && !key.includes('placeholder'));
+  return !!(url && key && url.startsWith('https://') && !url.includes('placeholder'));
 }
 
 export async function getSiteSettings(): Promise<Record<string, string>> {
@@ -22,6 +22,8 @@ export async function getSiteSettings(): Promise<Record<string, string>> {
   }
   
   const supabase = await createClient();
+  if (!supabase) return {};
+  
   const { data, error } = await supabase
     .from('site_settings')
     .select('key, value');
@@ -43,6 +45,8 @@ export async function getHomepageSection(key: string): Promise<HomepageSection |
   }
   
   const supabase = await createClient();
+  if (!supabase) return null;
+  
   const { data, error } = await supabase
     .from('homepage_sections')
     .select('*')
@@ -51,7 +55,6 @@ export async function getHomepageSection(key: string): Promise<HomepageSection |
     .single();
   
   if (error) {
-    console.error(`Error fetching homepage section ${key}:`, error);
     return null;
   }
 
@@ -64,6 +67,8 @@ export async function getAllProducts(): Promise<Product[]> {
   }
   
   const supabase = await createClient();
+  if (!supabase) return [];
+  
   const { data, error } = await supabase
     .from('products')
     .select('*')
@@ -71,7 +76,6 @@ export async function getAllProducts(): Promise<Product[]> {
     .order('display_order');
   
   if (error) {
-    console.error('Error fetching products:', error);
     return [];
   }
 
@@ -84,6 +88,8 @@ export async function getVisionMission(): Promise<VisionMission[]> {
   }
   
   const supabase = await createClient();
+  if (!supabase) return [];
+  
   const { data, error } = await supabase
     .from('vision_mission')
     .select('*')
@@ -91,7 +97,6 @@ export async function getVisionMission(): Promise<VisionMission[]> {
     .order('display_order');
   
   if (error) {
-    console.error('Error fetching vision/mission:', error);
     return [];
   }
 
@@ -104,6 +109,8 @@ export async function getWhyUsItems(): Promise<WhyUsItem[]> {
   }
   
   const supabase = await createClient();
+  if (!supabase) return [];
+  
   const { data, error } = await supabase
     .from('why_us_items')
     .select('*')
@@ -111,7 +118,6 @@ export async function getWhyUsItems(): Promise<WhyUsItem[]> {
     .order('display_order');
   
   if (error) {
-    console.error('Error fetching why us items:', error);
     return [];
   }
 
@@ -124,6 +130,8 @@ export async function getWhoWeServe(): Promise<WhoWeServeItem[]> {
   }
   
   const supabase = await createClient();
+  if (!supabase) return [];
+  
   const { data, error } = await supabase
     .from('who_we_serve')
     .select('*')
@@ -131,7 +139,6 @@ export async function getWhoWeServe(): Promise<WhoWeServeItem[]> {
     .order('display_order');
   
   if (error) {
-    console.error('Error fetching who we serve:', error);
     return [];
   }
 
@@ -144,6 +151,8 @@ export async function getPilotProgram(): Promise<PilotProgram | null> {
   }
   
   const supabase = await createClient();
+  if (!supabase) return null;
+  
   const { data, error } = await supabase
     .from('pilot_program')
     .select('*')
@@ -151,7 +160,6 @@ export async function getPilotProgram(): Promise<PilotProgram | null> {
     .single();
   
   if (error) {
-    console.error('Error fetching pilot program:', error);
     return null;
   }
 
@@ -164,6 +172,8 @@ export async function getContactInfo(): Promise<ContactInfo[]> {
   }
   
   const supabase = await createClient();
+  if (!supabase) return [];
+  
   const { data, error } = await supabase
     .from('contact_info')
     .select('*')
@@ -171,7 +181,6 @@ export async function getContactInfo(): Promise<ContactInfo[]> {
     .order('display_order');
   
   if (error) {
-    console.error('Error fetching contact info:', error);
     return [];
   }
 
