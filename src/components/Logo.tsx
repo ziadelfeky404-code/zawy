@@ -1,7 +1,6 @@
 
 'use client';
 
-import Image from 'next/image';
 import { cn } from "@/lib/utils";
 import logoSvg from '@/app/logo.svg';
 
@@ -11,15 +10,12 @@ interface LogoProps {
 
 export function Logo({ className }: LogoProps) {
   return (
-    <div className={cn("relative flex items-center justify-center overflow-hidden", className)}>
-      <div className="relative w-24 h-16 md:w-32 md:h-20 transition-transform hover:scale-105 duration-300">
-        <Image
-          src={logoSvg}
-          alt="ذوي - تقنيات مساندة"
-          fill
-          className="object-contain"
-          priority
-          data-ai-hint="logo company"
+    <div className={cn("relative flex items-center justify-center", className)}>
+      <div className="w-20 h-12 md:w-28 md:h-16 lg:w-36 lg:h-20 transition-transform hover:scale-105 duration-300">
+        <object
+          data={logoSvg.src}
+          type="image/svg+xml"
+          className="w-full h-full object-contain"
         />
       </div>
     </div>
