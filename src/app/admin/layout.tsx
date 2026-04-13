@@ -28,12 +28,12 @@ const navigation = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const supabase = createClient();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkUser = async () => {
+      const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         router.push('/admin/login');
@@ -42,9 +42,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       }
     };
     checkUser();
-  }, [supabase, router]);
+  }, [router]);
 
   const handleLogout = async () => {
+    const supabase = createClient();
     await supabase.auth.signOut();
     router.push('/admin/login');
   };
