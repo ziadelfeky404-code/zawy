@@ -1,18 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-'use client';
-
-import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Package, MessageSquare, Users, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
-
-export default function DashboardPage() {
-  const supabase = createClient();
 
 export default function DashboardPage() {
   const supabase = createClient();
