@@ -10,13 +10,13 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- ==============================================================================
 
 -- Product status enum
-CREATE TYPE product_status AS ENUM ('concept', 'prototype', 'pilot', 'coming_soon', 'published');
+CREATE TYPE IF NOT EXISTS product_status AS ENUM ('concept', 'prototype', 'pilot', 'coming_soon', 'published');
 
 -- Message status enum
-CREATE TYPE message_status AS ENUM ('new', 'read', 'archived');
+CREATE TYPE IF NOT EXISTS message_status AS ENUM ('new', 'read', 'archived');
 
 -- Pilot request status enum
-CREATE TYPE pilot_status AS ENUM ('new', 'contacted', 'approved', 'rejected', 'completed');
+CREATE TYPE IF NOT EXISTS pilot_status AS ENUM ('new', 'contacted', 'approved', 'rejected', 'completed');
 
 -- ==============================================================================
 -- SITE SETTINGS
