@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,24 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          router.push('/admin/dashboard');
+        }
+      } catch (e) {
+        console.error('Session check error:', e);
+      } finally {
+        setInitialized(true);
+      }
+    };
+    checkSession();
+  }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,11 +52,20 @@ export default function LoginPage() {
         router.push('/admin/dashboard');
       }
     } catch (err) {
+      console.error('Login error:', err);
       setError('حدث خطأ غير متوقع');
     } finally {
       setLoading(false);
     }
   };
+
+  if (!initialized) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
