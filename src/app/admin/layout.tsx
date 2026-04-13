@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useLayoutEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -29,59 +29,25 @@ const navigation = [
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isLoginPage, setIsLoginPage] = useState(false);
 
-  useLayoutEffect(() => {
-    const path = window.location.pathname;
-    if (path === '/admin/login') {
-      setIsLoginPage(true);
-      setLoading(false);
+  if (typeof window !== 'undefined') {
+    if (window.location.pathname === '/login') {
+      return <>{children}</>;
     }
-  }, []);
-
-  useEffect(() => {
-    if (isLoginPage) return;
-    
-    const checkUser = async () => {
-      try {
-        const supabase = createClient();
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-          router.push('/admin/login');
-        } else {
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error('Auth check error:', error);
-        setLoading(false);
-      }
-    };
-    checkUser();
-  }, [router, isLoginPage]);
+  }
 
   const handleLogout = async () => {
     try {
       const supabase = createClient();
       await supabase.auth.signOut();
-      router.push('/admin/login');
+      router.push('/login');
     } catch (error) {
       console.error('Logout error:', error);
-      router.push('/admin/login');
+      router.push('/login');
     }
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  if (isLoginPage) {
-    return <>{children}</>;
-  }
 
   return (
     <div className="min-h-screen bg-gray-100">
