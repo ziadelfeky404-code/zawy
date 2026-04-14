@@ -29,25 +29,38 @@ const navigation = [
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [isLoginPage, setIsLoginPage] = useState(false);
+  const [checking, setChecking] = useState(true);
 
-  if (typeof window !== 'undefined') {
-    if (window.location.pathname === '/signin') {
-      return <>{children}</>;
-    }
-  }
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          router.push('/admin/signin');
+        }
+      } catch (e) {
+        console.error('Auth check failed:', e);
+      } finally {
+        setChecking(false);
+      }
+    };
+    checkAuth();
+  }, [router]);
 
   const handleLogout = async () => {
-    try {
-      const supabase = createClient();
-      await supabase.auth.signOut();
-      router.push('/signin');
-    } catch (error) {
-      console.error('Logout error:', error);
-      router.push('/login');
-    }
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push('/admin/signin');
   };
+
+  if (checking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
