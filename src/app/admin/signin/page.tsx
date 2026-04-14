@@ -1,36 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 export default function SigninPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    const { createClient } = await import('@/lib/supabase/client');
-    const supabase = createClient();
-
-    const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
-
-    if (authError) {
-      setError('البريد الإلكتروني أو كلمة المرور غير صحيحة');
-      setLoading(false);
-    } else {
-      router.push('/admin/dashboard');
-    }
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <Card className="w-full max-w-md">
@@ -39,14 +13,12 @@ export default function SigninPage() {
           <CardDescription>لوحة تحكم ذوي</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+          <form className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm font-medium">البريد الإلكتروني</label>
-              <Input
+              <input
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 placeholder="admin@thawi.tech"
                 required
                 dir="ltr"
@@ -54,17 +26,16 @@ export default function SigninPage() {
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium">كلمة المرور</label>
-              <Input
+              <input
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 placeholder="••••••••"
                 required
                 dir="ltr"
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'جاري...' : 'تسجيل الدخول'}
+            <Button type="submit" className="w-full">
+              تسجيل الدخول
             </Button>
           </form>
         </CardContent>
